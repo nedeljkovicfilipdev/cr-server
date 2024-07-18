@@ -4,6 +4,9 @@ import { errorHandler } from './middlewares/error/errorHandler';
 import { routes } from './routes/routes';
 import cors from 'cors'
 import mongoose from 'mongoose';
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 export const buildApp = async () => {
     const app = express();
@@ -15,7 +18,7 @@ export const buildApp = async () => {
     app.use(cors())
 
     //MongoDB Connection
-    const mongoUri = '';
+    const mongoUri = process.env.MONGO_URI || '';
     try{
         await mongoose.connect(mongoUri)
         console.log('Connected to MongoDB:',mongoUri)

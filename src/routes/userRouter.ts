@@ -3,8 +3,8 @@ import { container } from '../container';
 import { CreateUserDTO } from '../dtos/user/createUserDTO';
 import { FindUserDTO } from '../dtos/user/findUserDTO';
 import { FindUsersDTO } from '../dtos/user/findUsersDTO';
-import { UserController } from '../services/users/controllers/userController';
 import { validateDTO } from '../utils/validateDTO';
+import { UserController } from '../services/users/controllers/UserController';
 
 const userRouter = Router();
 const userController = container.get<UserController>(UserController);

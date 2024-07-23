@@ -3,7 +3,7 @@ import { buildApp } from "./app"
 const startServer = async () => {
     try {
         const app = await buildApp();
-        const port = 3000;
+        const port = process.env.PORT;
 
         const server = app.listen(port, () => {
             console.log(`Server up and running on PORT ${port}`)

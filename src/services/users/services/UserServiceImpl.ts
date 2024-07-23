@@ -4,6 +4,9 @@ import { UserDocument } from '../../../models/UserDocument';
 import TYPES from '../../../types/Identifiers';
 import { UserRepository } from '../repositories/UserRepository';
 import { UserService } from './UserService';
+import { LoginUserDTO } from '../../../dtos/user/loginUserDTO';
+import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken'
 
 @injectable()
 export class UserServiceImpl implements UserService {
@@ -23,8 +26,21 @@ export class UserServiceImpl implements UserService {
 		return user;
 	}
 
+	async deleteUser(id: string): Promise<boolean> {
+		return this._userRepository.deleteUser(id)
+	}
+
 	async createUser(userData: CreateUserDTO): Promise<UserDocument | null> {
 		const user = await this._userRepository.saveUser(userData);
 		return user;
+	}
+
+	async loginUser(loginData: LoginUserDTO): Promise<{user: UserDocument; token: string} | null>{
+		const user = await this._userRepository.findByUsername(loginData.username);
+		if(user && await bcrypt.compare(loginData.password, user.password)){
+			const token = jwt.sign({id: user._id, username: user.username}, process.env.JWT_SECRET || '',{expiresIn:'1d'})
+			return {user, token};
+		}
+		return null
 	}
 }

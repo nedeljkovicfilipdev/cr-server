@@ -28,7 +28,7 @@ export const buildApp = async () => {
     }
 
     // Routes
-    app.use('/', routes);
+    app.use('/api/', routes);
 
     // Error Handlers
     app.use(notFoundErrorHandler);

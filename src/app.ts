@@ -1,21 +1,22 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import { notFoundErrorHandler } from './middlewares/error/notFoundErrorHandler';
 import { errorHandler } from './middlewares/error/errorHandler';
 import { routes } from './routes/routes';
 import cors from 'cors'
 import mongoose from 'mongoose';
-import dotenv from 'dotenv'
-
-dotenv.config()
 
 export const buildApp = async () => {
     const app = express();
-
     // Configuration
     app.use(express.json());
 
     //Enable CORS
-    app.use(cors())
+    app.use(cors({
+        origin: 'http://localhost:5100', // Replace with your frontend URL
+      }));
 
     //MongoDB Connection
     const mongoUri = process.env.MONGO_URI || '';
@@ -28,7 +29,7 @@ export const buildApp = async () => {
     }
 
     // Routes
-    app.use('/api/', routes);
+    app.use('/api', routes);
 
     // Error Handlers
     app.use(notFoundErrorHandler);

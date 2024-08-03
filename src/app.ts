@@ -14,10 +14,8 @@ export const buildApp = async () => {
     app.use(express.json());
 
     //Enable CORS
-    app.use(cors({
-        origin: 'http://localhost:5100', // Replace with your frontend URL
-      }));
-
+    app.use(cors())
+      
     //MongoDB Connection
     const mongoUri = process.env.MONGO_URI || '';
     try{

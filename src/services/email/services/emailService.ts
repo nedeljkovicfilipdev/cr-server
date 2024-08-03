@@ -24,9 +24,9 @@ export const sendEmail = async (req: Request, res: Response) => {
   try {
     await transporter.sendMail({
       from: email, // Example email address
-      to: 'nedeljkovicf.career@gmail.com', // Replace with the recipient's email address
-      subject: `Message from ${firstName} ${lastName}`,
-      text: `Message from ${firstName} ${lastName} (${email}):\n\n${message}`,
+      to: 'info@diversevisa.com', // Replace with the recipient's email address
+      subject: `Message from ${firstName} ${lastName} (${email})`,
+      text: `Message:\n\n${message}`,
     });
     res.status(200).json({ success: 'Email sent successfully' });
   } catch (error) {

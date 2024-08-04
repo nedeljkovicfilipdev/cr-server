@@ -1,19 +1,18 @@
-import nodemailer from 'nodemailer';
 import { Request, Response } from 'express';
+import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
   service: 'gmail',
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+    pass: process.env.EMAIL_PASS,
   },
-  secure: true, // Use TLS
+  secure: true,
   tls: {
     rejectUnauthorized: false,
   },
 });
 
-// Define the sendEmail function
 export const sendEmail = async (req: Request, res: Response) => {
   const { firstName, lastName, email, message } = req.body;
 
@@ -23,8 +22,8 @@ export const sendEmail = async (req: Request, res: Response) => {
 
   try {
     await transporter.sendMail({
-      from: email, // Example email address
-      to: 'info@diversevisa.com', // Replace with the recipient's email address
+      from: email,
+      to: 'info@diversevisa.com',
       subject: `Message from ${firstName} ${lastName} (${email})`,
       text: `Message:\n\n${message}`,
     });
@@ -36,5 +35,5 @@ export const sendEmail = async (req: Request, res: Response) => {
 };
 
 export const getEmail = async (req: Request, res: Response) => {
-  return res.status(200).json({message: "Radi"})
-}
+  return res.status(200).json({ message: "Radi" });
+};

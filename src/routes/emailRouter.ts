@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { getEmail, sendEmail } from '../services/emails/services/emailService';
+import { EmailService } from '../services/emails/services/emailService';
 
 const emailRouter = Router();
+const emailService = new EmailService();
 
-// Define the route for sending email
-emailRouter.get('/', getEmail);
-emailRouter.post('/', sendEmail);
+emailRouter.post('/', (req, res) => emailService.sendEmail(req, res));
+emailRouter.get('/', (req, res) => emailService.getEmail(req, res));
 
 export { emailRouter };
